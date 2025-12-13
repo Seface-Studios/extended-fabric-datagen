@@ -1,52 +1,50 @@
 plugins {
-  id 'java'
-  id 'java-library'
   id "fabric-loom" version "${fabric_loom_version}"
+  id "maven-publish"
 }
 
-group = 'net.sefacestudios'
-version = project_version
+base {
+  archivesName = "${project.mod_id}@${project.minecraft_version}"
+}
+
+group = project.maven_group
+version = project.version
+
+sourceSets {
+  javadoc {}
+
+  testmod {
+    compileClasspath += main.compileClasspath
+    runtimeClasspath += main.runtimeClasspath
+  }
+}
+
+
+loom {
+  createRemapConfigurations(sourceSets.testmod)
+}
 
 repositories {
   mavenCentral()
-  maven { url 'https://jitpack.io' }
-
   maven {
-    name = "ParchmentMC"
-    url = uri("https://maven.parchmentmc.org")
-    content {
-      includeGroupAndSubgroups("org.parchmentmc")
-    }
+    name = 'ParchmentMC'
+    url = 'https://maven.parchmentmc.org'
   }
 }
 
 dependencies {
   minecraft "com.mojang:minecraft:${minecraft_version}"
+  modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+  modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
 
-  mappings(loom.layered() {
+  mappings loom.layered() {
     officialMojangMappings()
-    parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchmentmc_version}@zip")
-    //mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-  })
-
-  modApi "net.fabricmc:fabric-loader:${fabric_loader_version}"
-  modApi "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-  implementation "com.github.crowdin:crowdin-api-client-java:${crowdin_version}"
-}
-
-sourceSets {
-  testmod {
-    compileClasspath += main.compileClasspath
-    runtimeClasspath += main.runtimeClasspath
-
-    // Adicionar o sourceSet main como dependência
-    compileClasspath += main.output
-    runtimeClasspath += main.output
-
-    resources {
-      srcDirs("src/testmod/generated")
-    }
+    parchment("org.parchmentmc.data:parchment-${project.parchmentmc_minecraft_version}:${project.parchmentmc_version}@zip")
   }
+
+  // Test mod dependencies
+  testmodImplementation sourceSets.main.output
+  modTestmodImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 }
 
 fabricApi {
@@ -59,28 +57,36 @@ fabricApi {
 runDatagen {
   outputs.dir file("src/testmod/generated")
   classpath += sourceSets.testmod.runtimeClasspath
-
-  // Loads a private gradle.properties with the test API Token
-  def privateProperties = file(".gradle/gradle.properties")
-  def localProps = new Properties()
-
-  if (privateProperties.exists()) {
-    privateProperties.withInputStream { stream ->
-      localProps.load(stream)
-    }
-  }
-
-  def token = localProps.getProperty("crowdin_token")
-  def project_id = localProps.getProperty("crowdin_project_id")
-  def organization = localProps.getProperty("crowdin_organization")
-
-  environment "CROWDIN_TOKEN", token
-  environment "CROWDIN_PROJECT_ID", project_id
-  environment "CROWDIN_ORGANIZATION", organization
 }
 
-// Configuração para JitPack
 java {
   withSourcesJar()
   withJavadocJar()
+
+  sourceCompatibility = JavaVersion.VERSION_21
+  targetCompatibility = JavaVersion.VERSION_21
+
+  tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    options.release = 21
+  }
+}
+
+publishing {
+  repositories {
+    maven {
+      name = "GitHubPackages"
+      url = uri("https://maven.pkg.github.com/Seface-Studios/extended-fabric-datagen")
+      credentials {
+        username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+        password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+      }
+    }
+  }
+
+  publications {
+    gpr(MavenPublication) {
+      from(components.java)
+    }
+  }
 }

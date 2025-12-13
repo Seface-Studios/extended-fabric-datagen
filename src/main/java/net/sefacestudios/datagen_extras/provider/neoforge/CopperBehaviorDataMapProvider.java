@@ -8,7 +8,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.sefacestudios.datagen_extras.data_maps.CopperBlockBehaviorDataMap;
 
@@ -50,8 +50,8 @@ public abstract class CopperBehaviorDataMapProvider implements DataProvider {
 
       for (CopperBlockBehaviorDataMap modifier : oxidizableBlocks) {
         CopperBehavior behavior = modifier.behavior();
-        ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(modifier.currentBlock());
-        ResourceLocation nextId = BuiltInRegistries.BLOCK.getKey(modifier.nextOrPreviousBlock());
+        Identifier blockId = BuiltInRegistries.BLOCK.getKey(modifier.currentBlock());
+        Identifier nextId = BuiltInRegistries.BLOCK.getKey(modifier.nextOrPreviousBlock());
 
         JsonObject entry = new JsonObject();
         entry.addProperty(behavior.getField(), nextId.toString());
@@ -74,7 +74,7 @@ public abstract class CopperBehaviorDataMapProvider implements DataProvider {
   }
 
   private Path getOutputPath(CopperBehavior func) {
-    return pathResolver.json(ResourceLocation.fromNamespaceAndPath("neoforge", func.getFileName()));
+    return pathResolver.json(Identifier.fromNamespaceAndPath("neoforge", func.getFileName()));
   }
 
   /**
@@ -97,6 +97,6 @@ public abstract class CopperBehaviorDataMapProvider implements DataProvider {
 
   @Override
   public String getName() {
-    return "(NeoForge only) Data Maps/Copper Behavior";
+    return "(NeoForge) Data Maps/Copper Behavior";
   }
 }

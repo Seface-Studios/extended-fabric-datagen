@@ -8,7 +8,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.sefacestudios.datagen_extras.data_maps.CompostableDataMap;
 
@@ -62,7 +62,7 @@ public abstract class CompostablesDataMapProvider implements DataProvider {
   }
 
   private Path getOutputPath() {
-    return pathResolver.json(ResourceLocation.fromNamespaceAndPath("neoforge", "compostables"));
+    return pathResolver.json(Identifier.fromNamespaceAndPath("neoforge", "compostables"));
   }
 
   /**
@@ -76,6 +76,6 @@ public abstract class CompostablesDataMapProvider implements DataProvider {
 
   @Override
   public String getName() {
-    return "(NeoForge only) Data Maps/Compostables";
+    return "(NeoForge) Data Maps/Compostables";
   }
 }

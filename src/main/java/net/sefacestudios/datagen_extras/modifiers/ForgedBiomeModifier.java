@@ -4,8 +4,8 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 public record ForgedBiomeModifier(
   ForgedBiomeModifierType type,
   Either<TagKey<Biome>, Either<ResourceKey<Biome>, List<ResourceKey<Biome>>>> biomes,
-  ResourceLocation features,
+  Identifier features,
   GenerationStep.Decoration step
 ) {
 
@@ -27,7 +27,7 @@ public record ForgedBiomeModifier(
     Codec.either(Codec.STRING.xmap(
         (str) -> {
           if (str.startsWith("#")) {
-            ResourceLocation location = ResourceLocation.tryParse(str.substring(1));
+            Identifier location = Identifier.tryParse(str.substring(1));
             if (location != null) {
               return TagKey.create(Registries.BIOME, location);
             }
@@ -43,12 +43,12 @@ public record ForgedBiomeModifier(
     return instance.group(
       ForgedBiomeModifierType.CODEC.fieldOf("type").forGetter(ForgedBiomeModifier::type),
       ForgedBiomeModifier.BIOMES_CODEC.fieldOf("biomes").forGetter(ForgedBiomeModifier::biomes),
-      ResourceLocation.CODEC.fieldOf("features").forGetter(ForgedBiomeModifier::features),
+      Identifier.CODEC.fieldOf("features").forGetter(ForgedBiomeModifier::features),
       GenerationStep.Decoration.CODEC.fieldOf("step").forGetter(ForgedBiomeModifier::step)
     ).apply(instance, ForgedBiomeModifier::new);
   });
 
-  public ResourceLocation getId() {
+  public Identifier getId() {
     return this.features;
   }
 
@@ -57,7 +57,7 @@ public record ForgedBiomeModifier(
 
     private ForgedBiomeModifierType type;
     private Either<TagKey<Biome>, Either<ResourceKey<Biome>, List<ResourceKey<Biome>>>> biomes;
-    private ResourceLocation features;
+    private Identifier features;
     private GenerationStep.Decoration step;
 
     public Builder(ForgedModLoaders loader) {
@@ -93,7 +93,7 @@ public record ForgedBiomeModifier(
     }
 
     public Builder features(ResourceKey<ConfiguredFeature<?, ?>> value) {
-      this.features = value.location();
+      this.features = value.identifier();
       return this;
     }
 
