@@ -8,7 +8,7 @@ base {
 }
 
 group = project.maven_group
-version = project.version
+version = project.mod_version
 
 sourceSets {
   javadoc {}
@@ -22,14 +22,6 @@ sourceSets {
 
 loom {
   createRemapConfigurations(sourceSets.testmod)
-}
-
-repositories {
-  mavenCentral()
-  maven {
-    name = 'ParchmentMC'
-    url = 'https://maven.parchmentmc.org'
-  }
 }
 
 dependencies {
