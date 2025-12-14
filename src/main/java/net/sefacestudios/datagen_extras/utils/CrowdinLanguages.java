@@ -2,7 +2,7 @@ package net.sefacestudios.datagen_extras.utils;
 
 import org.jetbrains.annotations.Nullable;
 
-@Deprecated()
+@Deprecated
 public enum CrowdinLanguages {
   AF_ZA("af_za", "af", "Afrikaans (Suid-Afrika)"),
   AR_SA("ar_sa", "ar", "العربية (العالم العربي)"),

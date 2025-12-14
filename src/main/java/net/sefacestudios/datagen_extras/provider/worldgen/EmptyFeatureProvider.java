@@ -1,13 +1,15 @@
 package net.sefacestudios.datagen_extras.provider.worldgen;
 
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class EmptyFeatureProvider extends FeatureProvider<NoneFeatureConfiguration> {
 
-  protected EmptyFeatureProvider(net.minecraft.world.level.levelgen.feature.Feature<NoneFeatureConfiguration> feature) {
+  protected EmptyFeatureProvider(Feature<@NotNull NoneFeatureConfiguration> feature) {
     super(feature);
   }
 

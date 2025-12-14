@@ -1,5 +1,6 @@
 pluginManagement {
   repositories {
+    mavenCentral()
     gradlePluginPortal()
     maven {
       name = 'Fabric'
@@ -8,5 +9,5 @@ pluginManagement {
   }
 }
 
-rootProject.name = 'extended-fabric-data-generation'
+rootProject.name = 'extended-fabric-datagen'
 

@@ -10,31 +10,32 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class FeatureProvider<FC extends FeatureConfiguration> {
   private HolderGetter<ConfiguredFeature<?, ?>> holder;
-  private final Feature<FC> feature;
-  private List<PlacementModifier> modifiers;
+  private final Feature<@NotNull FC> feature;
+  private final List<PlacementModifier> modifiers;
 
   private ResourceKey<PlacedFeature> placedFeatureKey;
   private ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey;
 
-  protected FeatureProvider(Feature<FC> feature) {
+  protected FeatureProvider(Feature<@NotNull FC> feature) {
     this.feature = feature;
     this.modifiers = new ArrayList<>();
   }
 
   /**
-   * All the placed features configuration for this features.
+   * All the placed features configuration for these features.
    * @param modifiers The modifiers;
    */
   protected abstract void placed(List<PlacementModifier> modifiers);
 
   /**
-   * All the configured features configuration for this features.
+   * All the configured features configuration for these features.
    */
   protected abstract FC configuration();
 

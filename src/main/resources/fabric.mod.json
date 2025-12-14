@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": ["Seface Studios"],
+  "contributors": [],
+
+  "contact": {
+    "homepage": "https://sefacestudios.net",
+    "sources": "https://github.com/Seface-Studios/extended-fabric-datagen",
+    "issues": "https://github.com/Seface-Studios/extended-fabric-datagen/issues"
+  },
+
+  "license": "None",
+  "icon": "assets/${mod_id}/icon.png",
+  "environment": "*",
+  "entrypoints": {},
+
+  "mixins": [],
+
+  "depends": {
+    "fabric-api": ">=${fabric_version}",
+    "fabricloader": ">=${fabric_loader_version}",
+    "minecraft": "${minecraft_version}",
+    "java": ">=${java_version}"
+  },
+
+  "suggests": {}
+}

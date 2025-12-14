@@ -13,6 +13,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryOps;
 import net.sefacestudios.datagen_extras.modifiers.ForgedBiomeModifier;
 import net.sefacestudios.datagen_extras.utils.ForgedModLoaders;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -36,8 +37,9 @@ public abstract class ForgifiedBiomeModifierProvider implements DataProvider {
 
   public abstract void generate(HolderLookup.Provider registryLookup, Consumer<ForgedBiomeModifier> consumer, ForgedModLoaders modLoader);
 
+  @NotNull
   @Override
-  public CompletableFuture<?> run(CachedOutput writer) {
+  public CompletableFuture<?> run(@NotNull CachedOutput writer) {
     this.pathResolver = this.output.createPathProvider(PackOutput.Target.DATA_PACK, this.loader.getId() + "/biome_modifier");
 
     return this.registryLookup.thenCompose(lookup -> {
@@ -69,6 +71,7 @@ public abstract class ForgifiedBiomeModifierProvider implements DataProvider {
     return pathResolver.json(modifier.getId());
   }
 
+  @NotNull
   @Override
   public String getName() {
     return  "(" + this.loader.getName() + ") Biome Modifier";

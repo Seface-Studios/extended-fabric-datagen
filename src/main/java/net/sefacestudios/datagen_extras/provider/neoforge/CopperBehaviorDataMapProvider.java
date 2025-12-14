@@ -11,6 +11,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.sefacestudios.datagen_extras.data_maps.CopperBlockBehaviorDataMap;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
 import java.util.Set;
@@ -31,8 +32,9 @@ public abstract class CopperBehaviorDataMapProvider implements DataProvider {
 
   public abstract void generate(HolderLookup.Provider registryLookup, Consumer<CopperBlockBehaviorDataMap> consumer);
 
+  @NotNull
   @Override
-  public CompletableFuture<?> run(CachedOutput writer) {
+  public CompletableFuture<?> run(@NotNull CachedOutput writer) {
     this.pathResolver = this.output.createPathProvider(PackOutput.Target.DATA_PACK, "data_maps");
 
     return this.registryLookup.thenCompose(lookup -> {
@@ -95,6 +97,7 @@ public abstract class CopperBehaviorDataMapProvider implements DataProvider {
     this.consumer.accept(new CopperBlockBehaviorDataMap(CopperBehavior.WAXABLE, block, nextBlock));
   }
 
+  @NotNull
   @Override
   public String getName() {
     return "(NeoForge) Data Maps/Copper Behavior";

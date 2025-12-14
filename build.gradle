@@ -37,10 +37,7 @@ dependencies {
   modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
   modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
 
-  mappings loom.layered() {
-    officialMojangMappings()
-    parchment("org.parchmentmc.data:parchment-${project.parchmentmc_minecraft_version}:${project.parchmentmc_version}@zip")
-  }
+  mappings loom.officialMojangMappings()
 
   // Test mod dependencies
   testmodImplementation sourceSets.main.output
@@ -52,6 +49,30 @@ fabricApi {
     settings.client = true
     settings.getOutputDirectory().set(project(":").file("src/testmod/generated"))
   })
+}
+
+processResources {
+  def expandProps = [
+    /* Minecraft */
+    "minecraft_version"             : minecraft_version,
+    "java_version"                  : java_version,
+
+    /* Fabric */
+    "fabric_version"                : fabric_version,
+    "fabric_loader_version"         : fabric_loader_version,
+
+    /* Mod */
+    "mod_name"                      : mod_name,
+    "mod_description"               : mod_description,
+    "mod_id"                        : mod_id,
+    "mod_version"                   : mod_version,
+  ]
+
+  filesMatching(['fabric.mod.json']) {
+    expand expandProps
+  }
+
+  inputs.properties(expandProps)
 }
 
 runDatagen {

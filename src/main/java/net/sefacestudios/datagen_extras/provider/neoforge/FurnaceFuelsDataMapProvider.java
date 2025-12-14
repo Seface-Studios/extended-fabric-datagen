@@ -11,6 +11,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.sefacestudios.datagen_extras.data_maps.FurnaceFuelsDataMap;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
 import java.util.Set;
@@ -31,8 +32,9 @@ public abstract class FurnaceFuelsDataMapProvider implements DataProvider {
 
   public abstract void generate(HolderLookup.Provider registryLookup, Consumer<FurnaceFuelsDataMap> consumer);
 
+  @NotNull
   @Override
-  public CompletableFuture<?> run(CachedOutput writer) {
+  public CompletableFuture<?> run(@NotNull CachedOutput writer) {
     this.pathResolver = this.output.createPathProvider(PackOutput.Target.DATA_PACK, "data_maps/item");
 
     return this.registryLookup.thenCompose(lookup -> {
@@ -74,6 +76,7 @@ public abstract class FurnaceFuelsDataMapProvider implements DataProvider {
     this.consumer.accept(new FurnaceFuelsDataMap(item.builtInRegistryHolder(), burnTime));
   }
 
+  @NotNull
   @Override
   public String getName() {
     return "(NeoForge) Data Maps/Furnace Fuels";
