@@ -1,6 +1,7 @@
 plugins {
+  id "java"
   id "fabric-loom" version "${fabric_loom_version}"
-  id "maven-publish"
+  id "com.vanniktech.maven.publish" version "${maven_publish_plugin_version}"
 }
 
 base {
@@ -9,6 +10,7 @@ base {
 
 group = project.maven_group
 version = project.mod_version
+String project_version = "${project.minecraft_version}-${mod_version}"
 
 sourceSets {
   javadoc {}
@@ -85,6 +87,37 @@ java {
   }
 }
 
+mavenPublishing {
+  coordinates(maven_group, mod_id, project_version)
+
+  pom {
+    name = mod_name
+    description = mod_description
+    inceptionYear = "2025"
+    url = "https://github.com/username/mylibrary/"
+    licenses {
+      license {
+        name = "The Apache License, Version 2.0"
+        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    }
+    developers {
+      developer {
+        id = "sefacestudios"
+        name = "Seface Studios"
+        url = "https://github.com/Seface-Studios/"
+      }
+    }
+    scm {
+      url = "https://github.com/Seface-Studios/${mod_id}./"
+      connection = "scm:git:git://github.com/Seface-Studios/${mod_id}.git"
+      developerConnection = "scm:git:ssh://git@github.com/Seface-Studios/${mod_id}..git"
+    }
+  }
+}
+
+/*
 publishing {
   repositories {
     maven {
@@ -103,3 +136,4 @@ publishing {
     }
   }
 }
+*/
