@@ -4,7 +4,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -23,13 +23,13 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public abstract class ForgifiedBiomeModifierProvider implements DataProvider {
-  private final FabricDataOutput output;
+  private final FabricPackOutput output;
   private final CompletableFuture<HolderLookup.Provider> registryLookup;
 
   private PackOutput.PathProvider pathResolver;
   private ForgedModLoaders loader;
 
-  public ForgifiedBiomeModifierProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, ForgedModLoaders loader) {
+  public ForgifiedBiomeModifierProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, ForgedModLoaders loader) {
     this.output = output;
     this.registryLookup = registryLookup;
     this.loader = loader;

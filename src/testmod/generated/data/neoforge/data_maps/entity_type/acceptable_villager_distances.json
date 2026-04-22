@@ -1,0 +1,7 @@
+{
+  "values": {
+    "minecraft:blaze": {
+      "acceptable_villager_distance": 4.0
+    }
+  }
+}

@@ -1,6 +1,6 @@
 package net.sefacestudios.testmod.datagen.provider;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -22,7 +22,7 @@ public class ModForgeBiomeModifierProvider extends ForgifiedBiomeModifierProvide
   private static final ResourceKey<ConfiguredFeature<?, ?>> CUSTOM_FEATURE_2 = TestMod.key(Registries.CONFIGURED_FEATURE, "custom_feature_2");
   private static final ResourceKey<ConfiguredFeature<?, ?>> CUSTOM_FEATURE_3 = TestMod.key(Registries.CONFIGURED_FEATURE, "custom_feature_3");
 
-  public ModForgeBiomeModifierProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, ForgedModLoaders loader) {
+  public ModForgeBiomeModifierProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, ForgedModLoaders loader) {
     super(output, registryLookup, loader);
   }
 

@@ -1,6 +1,6 @@
 package net.sefacestudios.testmod.datagen.provider;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class ModFurnaceFuelsDataMapProvider extends FurnaceFuelsDataMapProvider {
-  public ModFurnaceFuelsDataMapProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+  public ModFurnaceFuelsDataMapProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
     super(output, registryLookup);
   }
 

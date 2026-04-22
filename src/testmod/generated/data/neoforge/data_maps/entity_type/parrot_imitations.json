@@ -1,0 +1,7 @@
+{
+  "values": {
+    "minecraft:allay": {
+      "sound": "minecraft:ambient.cave"
+    }
+  }
+}

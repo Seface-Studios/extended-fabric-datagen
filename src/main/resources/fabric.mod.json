@@ -21,8 +21,8 @@
   "mixins": [],
 
   "depends": {
-    "fabric-api": ">=${fabric_version}",
-    "fabricloader": ">=${fabric_loader_version}",
+    "fabric-api": ">=${fabric_api}",
+    "fabricloader": ">=${fabric_loader}",
     "minecraft": "${minecraft_version}",
     "java": ">=${java_version}"
   },

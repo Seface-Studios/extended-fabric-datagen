@@ -1,10 +1,14 @@
 {
   "values": {
-    "minecraft:acacia_boat": {
+    "minecraft:acacia_button": {
+      "chance": 1.0
+    },
+    "minecraft:acacia_door": {
+      "can_villager_compost": true,
       "chance": 0.25
     },
     "minecraft:acacia_log": {
-      "chance": 1.0
+      "chance": 0.5
     }
   }
 }

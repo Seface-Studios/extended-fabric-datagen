@@ -2,7 +2,7 @@ package net.sefacestudios.datagen_extras.provider.neoforge;
 
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
@@ -19,13 +19,13 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public abstract class FurnaceFuelsDataMapProvider implements DataProvider {
-  private final FabricDataOutput output;
+  private final FabricPackOutput output;
   private final CompletableFuture<HolderLookup.Provider> registryLookup;
   private Consumer<FurnaceFuelsDataMap> consumer;
 
   private PackOutput.PathProvider pathResolver;
 
-  public FurnaceFuelsDataMapProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+  public FurnaceFuelsDataMapProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
     this.output = output;
     this.registryLookup = registryLookup;
   }

@@ -1,6 +1,6 @@
 plugins {
   id "java"
-  id "fabric-loom" version "${fabric_loom_version}"
+  id "net.fabricmc.fabric-loom" version "${fabric_loom}"
   id "com.vanniktech.maven.publish" version "${maven_publish_plugin_version}"
 }
 
@@ -21,21 +21,32 @@ sourceSets {
   }
 }
 
+sourceSets {
+  testmod {
+    compileClasspath += main.compileClasspath
+    runtimeClasspath += main.runtimeClasspath
+  }
+}
 
 loom {
-  createRemapConfigurations(sourceSets.testmod)
+  //createRemapConfigurations(sourceSets.testmod)
+  runs {
+    testmodClient {
+      client()
+      name = 'Testmod Client'
+      source sourceSets.testmod
+    }
+  }
 }
 
 dependencies {
   minecraft "com.mojang:minecraft:${minecraft_version}"
-  modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
-  modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
-
-  mappings loom.officialMojangMappings()
+  implementation "net.fabricmc:fabric-loader:${fabric_loader}"
+  implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api}+${minecraft_version}"
 
   // Test mod dependencies
   testmodImplementation sourceSets.main.output
-  modTestmodImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+  testmodImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api}+${minecraft_version}"
 }
 
 fabricApi {
@@ -48,18 +59,18 @@ fabricApi {
 processResources {
   def expandProps = [
     /* Minecraft */
-    "minecraft_version"             : minecraft_version,
-    "java_version"                  : java_version,
+    "minecraft_version": minecraft_version,
+    "java_version"     : java_version,
 
     /* Fabric */
-    "fabric_version"                : fabric_version,
-    "fabric_loader_version"         : fabric_loader_version,
+    fabric_api         : fabric_api,
+    fabric_loader      : fabric_loader,
 
     /* Mod */
-    "mod_name"                      : mod_name,
-    "mod_description"               : mod_description,
-    "mod_id"                        : mod_id,
-    "mod_version"                   : mod_version,
+    "mod_name"         : mod_name,
+    "mod_description"  : mod_description,
+    "mod_id"           : mod_id,
+    "mod_version"      : mod_version,
   ]
 
   filesMatching(['fabric.mod.json']) {
@@ -76,16 +87,79 @@ runDatagen {
 
 java {
   withSourcesJar()
-  withJavadocJar()
+  //withJavadocJar()
 
-  sourceCompatibility = JavaVersion.VERSION_21
-  targetCompatibility = JavaVersion.VERSION_21
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(25)
+  }
 
   tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
-    options.release = 21
   }
 }
+
+/*
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      groupId = maven_group
+      artifactId = mod_id
+      version = project_version
+      from components.java
+
+      pom {
+        name = mod_name
+        description = mod_description
+        inceptionYear = "2025"
+        url = "https://github.com/username/mylibrary/"
+        licenses {
+          license {
+            name = "The Apache License, Version 2.0"
+            url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+          }
+        }
+        developers {
+          developer {
+            id = "sefacestudios"
+            name = "Seface Studios"
+            url = "https://github.com/Seface-Studios/"
+          }
+        }
+        scm {
+          url = "https://github.com/Seface-Studios/${mod_id}./"
+          connection = "scm:git:git://github.com/Seface-Studios/${mod_id}.git"
+          developerConnection = "scm:git:ssh://git@github.com/Seface-Studios/${mod_id}..git"
+        }
+      }
+    }
+  }
+
+  repositories {
+    maven {
+      name = "OSSRH"
+      url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+      credentials {
+        username = project.properties["username"]
+        password = project.properties["password"]
+      }
+    }
+  }
+}
+*/
+
+/*signing {
+  sign publishing.publications.mavenJava
+}*/
+
+/*javadoc {
+  if (JavaVersion.current().isJava9Compatible()) {
+    options.addBooleanOption('html5', true)
+  }
+}*/
+
+// O plugin com.vanniktech.maven.publish lê as propriedades diretamente do gradle.properties
+// ou de propriedades do projeto passadas via -P. Não é necessária configuração adicional aqui.
 
 mavenPublishing {
   coordinates(maven_group, mod_id, project_version)
@@ -116,6 +190,15 @@ mavenPublishing {
     }
   }
 }
+
+/*afterEvaluate {
+  tasks.named('generateMetadataFileForMavenPublication') {
+    def plainJavadocJarTask = tasks.findByName('plainJavadocJar')
+    if (plainJavadocJarTask != null) {
+      dependsOn plainJavadocJarTask
+    }
+  }
+}*/
 
 /*
 publishing {
