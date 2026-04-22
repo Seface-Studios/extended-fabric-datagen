@@ -5,16 +5,13 @@ import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.sefacestudios.datagen_extras.data_maps.game_event.GameEventDataMap;
 import net.sefacestudios.datagen_extras.data_maps.game_event.VibrationFrequenciesDataMap;
-import net.sefacestudios.datagen_extras.data_maps.item.FurnaceFuelsDataMap;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
@@ -73,7 +70,7 @@ public abstract class GameEventMapProvider implements DataProvider {
     return pathResolver.json(Identifier.fromNamespaceAndPath("neoforge", fileName));
   }
 
-  public void addGameEventFrequency(Holder<@NotNull GameEvent> gameEvent, int frequency) {
+  public void addVibrationFrequency(Holder<@NotNull GameEvent> gameEvent, int frequency) {
     this.consumer.accept(new VibrationFrequenciesDataMap(gameEvent, frequency));
   }
 

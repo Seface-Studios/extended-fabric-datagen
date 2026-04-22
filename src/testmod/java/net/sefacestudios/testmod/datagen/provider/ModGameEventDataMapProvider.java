@@ -2,12 +2,9 @@ package net.sefacestudios.testmod.datagen.provider;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.sefacestudios.datagen_extras.data_maps.game_event.GameEventDataMap;
-import net.sefacestudios.datagen_extras.data_maps.item.ItemDataMap;
 import net.sefacestudios.datagen_extras.provider.neoforge.GameEventMapProvider;
-import net.sefacestudios.datagen_extras.provider.neoforge.ItemDataMapProvider;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -19,6 +16,6 @@ public class ModGameEventDataMapProvider extends GameEventMapProvider {
 
   @Override
   public void generate(HolderLookup.Provider registryLookup, Consumer<GameEventDataMap> consumer) {
-    this.addGameEventFrequency(GameEvent.SPLASH, 2);
+    this.addVibrationFrequency(GameEvent.SPLASH, 2);
   }
 }
