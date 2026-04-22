@@ -21,5 +21,7 @@ public class ModBlockDataMapProvider extends BlockDataMapProvider {
 
     this.addWaxableBlock(Blocks.EXPOSED_COPPER, Blocks.WEATHERED_COPPER);
     this.addWaxableBlock(Blocks.WEATHERED_COPPER, Blocks.COPPER_BLOCK);
+
+    this.addStrippableBlock(Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
   }
 }

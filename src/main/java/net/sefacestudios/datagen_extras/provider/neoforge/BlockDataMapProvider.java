@@ -15,6 +15,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
 import net.sefacestudios.datagen_extras.data_maps.block.BlockDataMap;
 import net.sefacestudios.datagen_extras.data_maps.block.OxidizablesBlockDataMap;
+import net.sefacestudios.datagen_extras.data_maps.block.StrippablesDataMap;
 import net.sefacestudios.datagen_extras.data_maps.block.WaxablesDataMap;
 import net.sefacestudios.datagen_extras.data_maps.entity_type.AcceptableVillagerDistancesDataMap;
 import net.sefacestudios.datagen_extras.data_maps.entity_type.EntityTypeDataMap;
@@ -58,13 +59,17 @@ public abstract class BlockDataMapProvider implements DataProvider {
       JsonObject waxedRoot = new JsonObject();
       final JsonObject waxedValues = new JsonObject();
 
+      JsonObject strippablesRoot = new JsonObject();
+      final JsonObject strippablesValues = new JsonObject();
+
       for (BlockDataMap dataMap : dataMaps) {
-        String entityTypeId = BuiltInRegistries.BLOCK.getKey(dataMap.block()).toString();
+        String blockId = BuiltInRegistries.BLOCK.getKey(dataMap.block()).toString();
         JsonObject entry = dataMap.toJson();
 
         switch (dataMap) {
-          case OxidizablesBlockDataMap _ -> oxidizablesValues.add(entityTypeId, entry);
-          case WaxablesDataMap _ -> waxedValues.add(entityTypeId, entry);
+          case OxidizablesBlockDataMap _ -> oxidizablesValues.add(blockId, entry);
+          case WaxablesDataMap _ -> waxedValues.add(blockId, entry);
+          case StrippablesDataMap _ -> strippablesValues.add(blockId, entry);
 
           default -> throw new IllegalStateException("Unknown block data map type: " + dataMap);
         }
@@ -72,10 +77,12 @@ public abstract class BlockDataMapProvider implements DataProvider {
 
       oxidizablesRoot.add("values", oxidizablesValues);
       waxedRoot.add("values", waxedValues);
+      strippablesRoot.add("values", strippablesValues);
 
       return CompletableFuture.allOf(
         DataProvider.saveStable(writer, oxidizablesRoot, getOutputPath("oxidizables")),
-        DataProvider.saveStable(writer, waxedRoot, getOutputPath("waxables"))
+        DataProvider.saveStable(writer, waxedRoot, getOutputPath("waxables")),
+        DataProvider.saveStable(writer, strippablesRoot, getOutputPath("strippables"))
       );
     });
   }
@@ -90,6 +97,10 @@ public abstract class BlockDataMapProvider implements DataProvider {
 
   public void addWaxableBlock(Block block, Block waxed) {
     this.consumer.accept(new WaxablesDataMap(block, waxed));
+  }
+
+  public void addStrippableBlock(Block block, Block stripped) {
+    this.consumer.accept(new StrippablesDataMap(block, stripped));
   }
 
   @NotNull
