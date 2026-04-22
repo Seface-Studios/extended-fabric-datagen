@@ -8,7 +8,7 @@ import net.minecraft.world.entity.EntityType;
 public record AcceptableVillagerDistancesDataMap(EntityType<?> entityType, float acceptableDistance) implements EntityTypeDataMap {
   public static Codec<AcceptableVillagerDistancesDataMap> CODEC = RecordCodecBuilder.create(
     (instance) -> instance.group(
-      EntityType.CODEC.fieldOf("entityType").forGetter(AcceptableVillagerDistancesDataMap::entityType),
+      EntityType.CODEC.fieldOf("entity_type").forGetter(AcceptableVillagerDistancesDataMap::entityType),
       Codec.FLOAT.fieldOf("acceptable_villager_distance").forGetter(AcceptableVillagerDistancesDataMap::acceptableDistance)
     ).apply(instance, AcceptableVillagerDistancesDataMap::new)
   );

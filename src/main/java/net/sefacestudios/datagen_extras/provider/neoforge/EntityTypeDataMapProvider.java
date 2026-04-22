@@ -23,14 +23,14 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public abstract class EntityDataMapProvider implements DataProvider {
+public abstract class EntityTypeDataMapProvider implements DataProvider {
   private final FabricPackOutput output;
   private final CompletableFuture<HolderLookup.Provider> registryLookup;
   private Consumer<EntityTypeDataMap> consumer;
 
   private PackOutput.PathProvider pathResolver;
 
-  public EntityDataMapProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+  public EntityTypeDataMapProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
     this.output = output;
     this.registryLookup = registryLookup;
   }
@@ -43,8 +43,8 @@ public abstract class EntityDataMapProvider implements DataProvider {
     this.pathResolver = this.output.createPathProvider(PackOutput.Target.DATA_PACK, "data_maps/entity_type");
 
     return this.registryLookup.thenCompose(lookup -> {
-      final Set<EntityTypeDataMap> compostables = Sets.newHashSet();
-      this.consumer = compostables::add;
+      final Set<EntityTypeDataMap> dataMaps = Sets.newHashSet();
+      this.consumer = dataMaps::add;
 
       this.generate(lookup, this.consumer);
 
@@ -57,16 +57,16 @@ public abstract class EntityDataMapProvider implements DataProvider {
       JsonObject parrotRoot = new JsonObject();
       final JsonObject parrotValues = new JsonObject();
 
-      for (EntityTypeDataMap modifier : compostables) {
-        String entityTypeId = BuiltInRegistries.ENTITY_TYPE.getKey(modifier.entityType()).toString();
-        JsonObject entry = modifier.toJson();
+      for (EntityTypeDataMap dataMap : dataMaps) {
+        String entityTypeId = BuiltInRegistries.ENTITY_TYPE.getKey(dataMap.entityType()).toString();
+        JsonObject entry = dataMap.toJson();
 
-        switch (modifier) {
+        switch (dataMap) {
           case AcceptableVillagerDistancesDataMap _ -> villagerValues.add(entityTypeId, entry);
           case MonsterRoomMobsDataMap _ -> monsterValues.add(entityTypeId, entry);
           case ParrotImitationsDataMap _ -> parrotValues.add(entityTypeId, entry);
 
-          default -> throw new IllegalStateException("Unknown data map type: " + modifier);
+          default -> throw new IllegalStateException("Unknown entity data map type: " + dataMap);
         }
       }
 
@@ -101,6 +101,6 @@ public abstract class EntityDataMapProvider implements DataProvider {
   @NotNull
   @Override
   public String getName() {
-    return "(NeoForge) Data Maps/Acceptable Villager Distances";
+    return "(NeoForge) Entity Type Data Maps";
   }
 }

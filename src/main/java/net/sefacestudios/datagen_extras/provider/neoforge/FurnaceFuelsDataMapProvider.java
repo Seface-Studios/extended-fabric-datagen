@@ -10,7 +10,7 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
-import net.sefacestudios.datagen_extras.data_maps.FurnaceFuelsDataMap;
+import net.sefacestudios.datagen_extras.data_maps.item.FurnaceFuelsDataMap;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;

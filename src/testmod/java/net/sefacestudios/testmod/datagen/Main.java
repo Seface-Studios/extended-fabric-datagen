@@ -11,10 +11,9 @@ public class Main implements DataGeneratorEntrypoint {
   public void onInitializeDataGenerator(FabricDataGenerator datagen) {
     final FabricDataGenerator.Pack pack = datagen.createPack();
 
-    pack.addProvider(ModEntityDataMapProvider::new);
+    pack.addProvider(ModEntityTypeDataMapProvider::new);
+    pack.addProvider(ModItemDataMapProvider::new);
     pack.addProvider(ModCopperBehaviorDataMapProvider::new);
-    pack.addProvider(ModFurnaceFuelsDataMapProvider::new);
-    pack.addProvider(ModCompostablesDataMapProvider::new);
     pack.addProvider((output, registriesFuture) -> new ModForgeBiomeModifierProvider(output, registriesFuture, ForgedModLoaders.FORGE));
     pack.addProvider((output, registriesFuture) -> new ModForgeBiomeModifierProvider(output, registriesFuture, ForgedModLoaders.NEOFORGE));
   }

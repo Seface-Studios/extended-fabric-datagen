@@ -1,14 +1,14 @@
 {
   "values": {
     "minecraft:acacia_button": {
-      "chance": 1.0
+      "can_villager_compost": true,
+      "weight": 1.0
     },
     "minecraft:acacia_door": {
-      "can_villager_compost": true,
-      "chance": 0.25
+      "weight": 1.0
     },
     "minecraft:acacia_log": {
-      "chance": 0.5
+      "weight": 0.5
     }
   }
 }

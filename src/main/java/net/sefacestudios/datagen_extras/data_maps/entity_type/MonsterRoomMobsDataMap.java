@@ -8,7 +8,7 @@ import net.minecraft.world.entity.EntityType;
 public record MonsterRoomMobsDataMap(EntityType<?> entityType, int weight) implements EntityTypeDataMap {
   public static Codec<MonsterRoomMobsDataMap> CODEC = RecordCodecBuilder.create(
     (instance) -> instance.group(
-      EntityType.CODEC.fieldOf("entityType").forGetter(MonsterRoomMobsDataMap::entityType),
+      EntityType.CODEC.fieldOf("entity_type").forGetter(MonsterRoomMobsDataMap::entityType),
       Codec.INT.fieldOf("weight").forGetter(MonsterRoomMobsDataMap::weight)
     ).apply(instance, MonsterRoomMobsDataMap::new)
   );

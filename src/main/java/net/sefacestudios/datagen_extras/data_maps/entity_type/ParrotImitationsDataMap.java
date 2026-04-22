@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 public record ParrotImitationsDataMap(EntityType<?> entityType, Holder<@NotNull SoundEvent> sound) implements EntityTypeDataMap {
   public static Codec<ParrotImitationsDataMap> CODEC = RecordCodecBuilder.create(
     (instance) -> instance.group(
-      EntityType.CODEC.fieldOf("entityType").forGetter(ParrotImitationsDataMap::entityType),
+      EntityType.CODEC.fieldOf("entity_type").forGetter(ParrotImitationsDataMap::entityType),
       SoundEvent.CODEC.fieldOf("sound").forGetter(ParrotImitationsDataMap::sound)
     ).apply(instance, ParrotImitationsDataMap::new)
   );
