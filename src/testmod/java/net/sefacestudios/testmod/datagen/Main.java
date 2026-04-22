@@ -14,6 +14,7 @@ public class Main implements DataGeneratorEntrypoint {
     pack.addProvider(ModEntityTypeDataMapProvider::new);
     pack.addProvider(ModItemDataMapProvider::new);
     pack.addProvider(ModGameEventDataMapProvider::new);
+    pack.addProvider(ModVillagerProfessionDataMapProvider::new);
 
 
     pack.addProvider(ModCopperBehaviorDataMapProvider::new);

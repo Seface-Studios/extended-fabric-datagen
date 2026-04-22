@@ -1,0 +1,7 @@
+{
+  "values": {
+    "minecraft:armorer": {
+      "loot_table": "minecraft:gameplay/hero_of_the_village/armorer_gift"
+    }
+  }
+}
