@@ -13,6 +13,9 @@ public class Main implements DataGeneratorEntrypoint {
 
     pack.addProvider(ModEntityTypeDataMapProvider::new);
     pack.addProvider(ModItemDataMapProvider::new);
+    pack.addProvider(ModGameEventDataMapProvider::new);
+
+
     pack.addProvider(ModCopperBehaviorDataMapProvider::new);
     pack.addProvider((output, registriesFuture) -> new ModForgeBiomeModifierProvider(output, registriesFuture, ForgedModLoaders.FORGE));
     pack.addProvider((output, registriesFuture) -> new ModForgeBiomeModifierProvider(output, registriesFuture, ForgedModLoaders.NEOFORGE));
