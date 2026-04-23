@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": [
+    "minecraft:savanna",
+    "minecraft:windswept_savanna"
+  ],
+  "features": "minecraft:classic_vines_cave_feature",
+  "step": "underground_ores"
+}

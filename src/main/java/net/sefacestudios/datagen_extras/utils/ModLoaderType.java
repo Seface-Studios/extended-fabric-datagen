@@ -1,6 +1,6 @@
 package net.sefacestudios.datagen_extras.utils;
 
-public enum ForgedModLoaders {
+public enum ModLoaderType {
   FORGE(0, "forge", "Minecraft Forge"),
   NEOFORGE(1, "neoforge", "NeoForge");
 
@@ -8,7 +8,7 @@ public enum ForgedModLoaders {
   private final String id;
   private final String name;
 
-  ForgedModLoaders(int index, String id, String name) {
+  ModLoaderType(int index, String id, String name) {
     this.index = index;
     this.id = id;
     this.name = name;
@@ -22,7 +22,7 @@ public enum ForgedModLoaders {
     return this.name;
   }
 
-  public boolean is(ForgedModLoaders expect) {
+  public boolean is(ModLoaderType expect) {
     return this == expect;
   }
 

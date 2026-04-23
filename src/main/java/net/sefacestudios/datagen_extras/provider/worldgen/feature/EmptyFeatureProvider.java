@@ -1,4 +1,4 @@
-package net.sefacestudios.datagen_extras.provider.worldgen;
+package net.sefacestudios.datagen_extras.provider.worldgen.feature;
 
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;

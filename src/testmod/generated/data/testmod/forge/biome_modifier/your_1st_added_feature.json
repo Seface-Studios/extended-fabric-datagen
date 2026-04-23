@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:has_structure/igloo",
+  "features": "minecraft:cave_vines",
+  "step": "underground_ores"
+}

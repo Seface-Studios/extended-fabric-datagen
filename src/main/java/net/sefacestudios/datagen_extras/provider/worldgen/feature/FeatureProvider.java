@@ -1,4 +1,4 @@
-package net.sefacestudios.datagen_extras.provider.worldgen;
+package net.sefacestudios.datagen_extras.provider.worldgen.feature;
 
 
 import net.minecraft.core.HolderGetter;

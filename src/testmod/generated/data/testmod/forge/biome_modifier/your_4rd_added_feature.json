@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "minecraft:savanna",
+    "minecraft:windswept_savanna"
+  ],
+  "features": [
+    "minecraft:classic_vines_cave_feature",
+    "minecraft:amethyst_geode"
+  ],
+  "step": "underground_ores"
+}

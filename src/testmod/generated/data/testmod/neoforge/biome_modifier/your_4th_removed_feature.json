@@ -1,0 +1,11 @@
+{
+  "type": "neoforge:remove_features",
+  "biomes": [
+    "minecraft:deep_frozen_ocean",
+    "minecraft:deep_cold_ocean"
+  ],
+  "features": [
+    "minecraft:classic_vines_cave_feature",
+    "minecraft:amethyst_geode"
+  ]
+}

@@ -5,12 +5,11 @@ plugins {
 }
 
 base {
-  archivesName = "${project.mod_id}@${project.minecraft_version}"
+  archivesName = "${mod_id}@${mod_version}"
 }
 
-group = project.maven_group
-version = project.mod_version
-String project_version = "${project.minecraft_version}-${mod_version}"
+group = maven_group
+version = mod_version
 
 sourceSets {
   javadoc {}
@@ -29,7 +28,6 @@ sourceSets {
 }
 
 loom {
-  //createRemapConfigurations(sourceSets.testmod)
   runs {
     testmodClient {
       client()
@@ -98,71 +96,8 @@ java {
   }
 }
 
-/*
-publishing {
-  publications {
-    mavenJava(MavenPublication) {
-      groupId = maven_group
-      artifactId = mod_id
-      version = project_version
-      from components.java
-
-      pom {
-        name = mod_name
-        description = mod_description
-        inceptionYear = "2025"
-        url = "https://github.com/username/mylibrary/"
-        licenses {
-          license {
-            name = "The Apache License, Version 2.0"
-            url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-            distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-          }
-        }
-        developers {
-          developer {
-            id = "sefacestudios"
-            name = "Seface Studios"
-            url = "https://github.com/Seface-Studios/"
-          }
-        }
-        scm {
-          url = "https://github.com/Seface-Studios/${mod_id}./"
-          connection = "scm:git:git://github.com/Seface-Studios/${mod_id}.git"
-          developerConnection = "scm:git:ssh://git@github.com/Seface-Studios/${mod_id}..git"
-        }
-      }
-    }
-  }
-
-  repositories {
-    maven {
-      name = "OSSRH"
-      url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-      credentials {
-        username = project.properties["username"]
-        password = project.properties["password"]
-      }
-    }
-  }
-}
-*/
-
-/*signing {
-  sign publishing.publications.mavenJava
-}*/
-
-/*javadoc {
-  if (JavaVersion.current().isJava9Compatible()) {
-    options.addBooleanOption('html5', true)
-  }
-}*/
-
-// O plugin com.vanniktech.maven.publish lê as propriedades diretamente do gradle.properties
-// ou de propriedades do projeto passadas via -P. Não é necessária configuração adicional aqui.
-
 mavenPublishing {
-  coordinates(maven_group, mod_id, project_version)
+  coordinates(maven_group, mod_id, mod_version)
 
   pom {
     name = mod_name
@@ -190,33 +125,3 @@ mavenPublishing {
     }
   }
 }
-
-/*afterEvaluate {
-  tasks.named('generateMetadataFileForMavenPublication') {
-    def plainJavadocJarTask = tasks.findByName('plainJavadocJar')
-    if (plainJavadocJarTask != null) {
-      dependsOn plainJavadocJarTask
-    }
-  }
-}*/
-
-/*
-publishing {
-  repositories {
-    maven {
-      name = "GitHubPackages"
-      url = uri("https://maven.pkg.github.com/Seface-Studios/extended-fabric-datagen")
-      credentials {
-        username = System.getenv("GITHUB_ACTOR")
-        password = System.getenv("GITHUB_TOKEN")
-      }
-    }
-  }
-
-  publications {
-    gpr(MavenPublication) {
-      from(components.java)
-    }
-  }
-}
-*/

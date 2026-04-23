@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:remove_features",
+  "biomes": "#minecraft:allows_surface_slime_spawns",
+  "features": "minecraft:cave_vines",
+  "steps": "underground_ores"
+}

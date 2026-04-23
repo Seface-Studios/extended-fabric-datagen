@@ -2,7 +2,7 @@ package net.sefacestudios.testmod.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.sefacestudios.datagen_extras.utils.ForgedModLoaders;
+import net.sefacestudios.datagen_extras.utils.ModLoaderType;
 import net.sefacestudios.testmod.datagen.provider.*;
 
 public class Main implements DataGeneratorEntrypoint {
@@ -17,9 +17,7 @@ public class Main implements DataGeneratorEntrypoint {
     pack.addProvider(ModVillagerProfessionDataMapProvider::new);
     pack.addProvider(ModBlockDataMapProvider::new);
     pack.addProvider(ModWorlgenDataMapProvider::new);
-
-
-    pack.addProvider((output, registriesFuture) -> new ModForgeBiomeModifierProvider(output, registriesFuture, ForgedModLoaders.FORGE));
-    pack.addProvider((output, registriesFuture) -> new ModForgeBiomeModifierProvider(output, registriesFuture, ForgedModLoaders.NEOFORGE));
+    pack.addProvider(ModBiomeModifierProvider::new);
+    pack.addProvider((o, rf) -> new ModBiomeModifierProvider(o, rf, ModLoaderType.NEOFORGE));
   }
 }
