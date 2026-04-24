@@ -1,9 +1,9 @@
 package net.sefacestudios.datagen_extras.data_maps.worldgen;
 
-import com.google.gson.JsonObject;
-import net.minecraft.world.level.block.Block;
+import net.sefacestudios.datagen_extras.data_maps.DataMap;
+import org.jetbrains.annotations.NotNull;
 
-public interface WorldgenDataMap<T>{
+public interface WorldgenDataMap<T> extends DataMap {
+  @NotNull
   T key();
-  JsonObject toJson();
 }

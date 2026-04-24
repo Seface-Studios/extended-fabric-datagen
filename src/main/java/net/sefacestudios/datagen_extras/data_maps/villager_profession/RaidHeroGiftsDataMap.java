@@ -2,6 +2,7 @@ package net.sefacestudios.datagen_extras.data_maps.villager_profession;
 
 import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,8 +25,19 @@ public record RaidHeroGiftsDataMap(VillagerProfession profession, Identifier loo
 
   @Override
   public JsonObject toJson() {
-    JsonObject obj = new JsonObject();
-    obj.addProperty("loot_table", this.lootTable.toString());
-    return obj;
+    JsonObject object = CODEC
+      .encodeStart(JsonOps.INSTANCE, this)
+      .getOrThrow(IllegalStateException::new)
+      .getAsJsonObject();
+
+    object.remove("profession");
+
+    return object;
+  }
+
+  @NotNull
+  @Override
+  public String getFileName() {
+    return "raid_hero_gifts";
   }
 }

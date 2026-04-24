@@ -2,6 +2,7 @@ package net.sefacestudios.datagen_extras.data_maps.worldgen;
 
 import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -23,8 +24,24 @@ public record VillagerTypeDataMap(Identifier key, Identifier villagerType) imple
 
   @Override
   public JsonObject toJson() {
-    JsonObject obj = new JsonObject();
-    obj.addProperty("villager_type", this.villagerType.toString());
-    return obj;
+    JsonObject object = CODEC
+      .encodeStart(JsonOps.INSTANCE, this)
+      .getOrThrow(IllegalStateException::new)
+      .getAsJsonObject();
+
+    object.remove("biome");
+
+    return object;
+  }
+
+  @NotNull
+  @Override
+  public String getFileName() {
+    return "biome/villager_types";
+  }
+
+  @Override
+  public @NotNull String getStringfiedKey() {
+    return this.key().toString();
   }
 }

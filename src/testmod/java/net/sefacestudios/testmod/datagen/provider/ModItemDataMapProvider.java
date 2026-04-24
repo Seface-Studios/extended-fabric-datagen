@@ -2,13 +2,8 @@ package net.sefacestudios.testmod.datagen.provider;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
-import net.sefacestudios.datagen_extras.data_maps.entity_type.EntityTypeDataMap;
 import net.sefacestudios.datagen_extras.data_maps.item.ItemDataMap;
-import net.sefacestudios.datagen_extras.provider.neoforge.EntityTypeDataMapProvider;
 import net.sefacestudios.datagen_extras.provider.neoforge.ItemDataMapProvider;
 
 import java.util.concurrent.CompletableFuture;

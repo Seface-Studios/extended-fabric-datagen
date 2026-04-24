@@ -4,12 +4,12 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.sefacestudios.datagen_extras.data_maps.game_event.GameEventDataMap;
-import net.sefacestudios.datagen_extras.provider.neoforge.GameEventMapProvider;
+import net.sefacestudios.datagen_extras.provider.neoforge.GameEventDataMapProvider;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public class ModGameEventDataMapProvider extends GameEventMapProvider {
+public class ModGameEventDataMapProvider extends GameEventDataMapProvider {
   public ModGameEventDataMapProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
     super(output, registryLookup);
   }

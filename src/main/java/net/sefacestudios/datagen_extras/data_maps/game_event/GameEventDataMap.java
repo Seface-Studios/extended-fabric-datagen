@@ -1,12 +1,22 @@
 package net.sefacestudios.datagen_extras.data_maps.game_event;
 
-import com.google.gson.JsonObject;
-import net.minecraft.core.Holder;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.sefacestudios.datagen_extras.data_maps.DataMap;
 import org.jetbrains.annotations.NotNull;
 
-public interface GameEventDataMap {
-  Holder<@NotNull GameEvent> gameEvent();
-  JsonObject toJson();
+public interface GameEventDataMap extends DataMap {
+  GameEvent gameEvent();
+
+  @NotNull
+  @Override
+  default String getStringfiedKey() {
+    return BuiltInRegistries.GAME_EVENT.getKey(this.gameEvent()).toString();
+  }
+
+  static GameEvent getGameEventByResourceKey(ResourceKey<@NotNull GameEvent> resourceKey) {
+    return BuiltInRegistries.GAME_EVENT.getValueOrThrow(resourceKey);
+  }
 }
