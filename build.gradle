@@ -103,7 +103,7 @@ mavenPublishing {
     name = mod_name
     description = mod_description
     inceptionYear = "2025"
-    url = "https://github.com/username/mylibrary/"
+    url = "https://github.com/Seface-Studios/${mod_id}/"
     licenses {
       license {
         name = "The Apache License, Version 2.0"
