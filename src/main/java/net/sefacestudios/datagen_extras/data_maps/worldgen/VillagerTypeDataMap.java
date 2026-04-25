@@ -4,24 +4,22 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.npc.villager.VillagerType;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-public record VillagerTypeDataMap(Identifier key, Identifier villagerType) implements WorldgenDataMap<Identifier> {
+public record VillagerTypeDataMap(ResourceKey<@NotNull Biome> key, ResourceKey<@NotNull VillagerType> villagerType) implements WorldgenDataMap<ResourceKey<@NotNull Biome>> {
 
   public static Codec<VillagerTypeDataMap> CODEC = RecordCodecBuilder.create(
     (instance) -> instance.group(
-      Identifier.CODEC.fieldOf("biome").forGetter(VillagerTypeDataMap::key),
-      Identifier.CODEC.fieldOf("villager_type").forGetter(VillagerTypeDataMap::villagerType)
+      ResourceKey.codec(Registries.BIOME).fieldOf("biome").forGetter(VillagerTypeDataMap::key),
+      ResourceKey.codec(Registries.VILLAGER_TYPE).fieldOf("villager_type").forGetter(VillagerTypeDataMap::villagerType)
     ).apply(instance, VillagerTypeDataMap::new)
   );
 
+  @NotNull
   @Override
   public JsonObject toJson() {
     JsonObject object = CODEC
@@ -40,8 +38,9 @@ public record VillagerTypeDataMap(Identifier key, Identifier villagerType) imple
     return "biome/villager_types";
   }
 
+  @NotNull
   @Override
-  public @NotNull String getStringfiedKey() {
-    return this.key().toString();
+  public String getStringifiedKey() {
+    return this.key().identifier().toString();
   }
 }

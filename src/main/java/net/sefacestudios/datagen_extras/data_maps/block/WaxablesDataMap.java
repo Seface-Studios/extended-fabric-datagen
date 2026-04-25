@@ -4,14 +4,10 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 public record WaxablesDataMap(Block block, Block waxed) implements BlockDataMap {
 

@@ -4,11 +4,9 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,6 +26,7 @@ public record VibrationFrequenciesDataMap(GameEvent gameEvent, int frequency) im
     ).apply(instance, VibrationFrequenciesDataMap::new)
   );
 
+  @NotNull
   @Override
   public JsonObject toJson() {
     JsonObject object = CODEC

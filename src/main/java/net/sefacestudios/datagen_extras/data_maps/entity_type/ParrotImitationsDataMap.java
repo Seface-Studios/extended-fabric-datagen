@@ -45,6 +45,10 @@ public record ParrotImitationsDataMap(EntityType<?> entityType, SoundEvent sound
     return "parrot_imitations";
   }
 
+  /**
+   * Get the sound event object from the ResourceKey.
+   * @param resourceKey The sound event ResourceKey.
+   */
   static SoundEvent getSoundEventByResourceKey(ResourceKey<@NotNull SoundEvent> resourceKey) {
     return BuiltInRegistries.SOUND_EVENT.getValueOrThrow(resourceKey);
   }

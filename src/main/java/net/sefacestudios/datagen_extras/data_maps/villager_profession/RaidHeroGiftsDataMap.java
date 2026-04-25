@@ -4,25 +4,22 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.NotNull;
 
-public record RaidHeroGiftsDataMap(VillagerProfession profession, Identifier lootTable) implements VillagerProfessionDataMap {
+public record RaidHeroGiftsDataMap(VillagerProfession profession, ResourceKey<@NotNull LootTable> lootTable) implements VillagerProfessionDataMap {
   public static Codec<RaidHeroGiftsDataMap> CODEC = RecordCodecBuilder.create(
     (instance) -> instance.group(
       BuiltInRegistries.VILLAGER_PROFESSION.byNameCodec().fieldOf("profession").forGetter(RaidHeroGiftsDataMap::profession),
-      Identifier.CODEC.fieldOf("loot_table").forGetter(RaidHeroGiftsDataMap::lootTable)
+      ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("loot_table").forGetter(RaidHeroGiftsDataMap::lootTable)
     ).apply(instance, RaidHeroGiftsDataMap::new)
   );
 
+  @NotNull
   @Override
   public JsonObject toJson() {
     JsonObject object = CODEC

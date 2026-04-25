@@ -14,7 +14,7 @@ public record CompostableDataMap(Item item, float chance, boolean canVillagerCom
   public static Codec<CompostableDataMap> CODEC = RecordCodecBuilder.create(
     (instance) -> instance.group(
       ResourceKey.codec(Registries.ITEM)
-        .xmap(ItemDataMap::getBlockByResourceKey, item -> item.builtInRegistryHolder().key())
+        .xmap(ItemDataMap::getItemByResourceKey, item -> item.builtInRegistryHolder().key())
         .fieldOf("item")
         .forGetter(CompostableDataMap::item),
       Codec.floatRange(0, 1).fieldOf("chance").forGetter(CompostableDataMap::chance),

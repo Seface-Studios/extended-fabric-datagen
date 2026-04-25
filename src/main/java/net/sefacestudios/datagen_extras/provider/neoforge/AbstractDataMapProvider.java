@@ -30,11 +30,6 @@ public abstract class AbstractDataMapProvider<T extends DataMap> implements Data
     this.path = output.createPathProvider(PackOutput.Target.DATA_PACK, "data_maps/" + dataMapPath);
   }
 
-  /**
-   *
-   * @param lookup
-   * @param consumer
-   */
   public abstract void generate(HolderLookup.Provider lookup, Consumer<T> consumer);
 
   @NotNull
@@ -58,15 +53,16 @@ public abstract class AbstractDataMapProvider<T extends DataMap> implements Data
         });
 
         JsonObject values = root.getAsJsonObject("values");
-        values.add(dataMap.getStringfiedKey(), dataMap.toJson());
+        values.add(dataMap.getStringifiedKey(), dataMap.toJson());
       }
 
       return CompletableFuture.allOf(
         roots.entrySet().stream()
-          .map(entry -> DataProvider.saveStable(
+          .filter(e -> !e.getValue().getAsJsonObject("values").isEmpty())
+          .map(e -> DataProvider.saveStable(
             writer,
-            entry.getValue(),
-            this.getOutputPath(entry.getKey())
+            e.getValue(),
+            this.getOutputPath(e.getKey())
           ))
           .toArray(CompletableFuture[]::new)
       );

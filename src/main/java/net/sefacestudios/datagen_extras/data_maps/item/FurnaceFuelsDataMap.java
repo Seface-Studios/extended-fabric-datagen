@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
@@ -15,7 +14,7 @@ public record FurnaceFuelsDataMap(Item item, int burnTime) implements ItemDataMa
   public static Codec<FurnaceFuelsDataMap> CODEC = RecordCodecBuilder.create(
     (instance) -> instance.group(
       ResourceKey.codec(Registries.ITEM)
-        .xmap(ItemDataMap::getBlockByResourceKey, item -> item.builtInRegistryHolder().key())
+        .xmap(ItemDataMap::getItemByResourceKey, item -> item.builtInRegistryHolder().key())
         .fieldOf("item")
         .forGetter(FurnaceFuelsDataMap::item),
       Codec.INT.fieldOf("burn_time").forGetter(FurnaceFuelsDataMap::burnTime)

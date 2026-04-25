@@ -17,7 +17,7 @@ public abstract class WorldgenDataMapProvider extends AbstractDataMapProvider<Wo
   }
 
   public void addVillagerType(ResourceKey<@NotNull Biome> biome, ResourceKey<@NotNull VillagerType> villagerType) {
-    this.consumer.accept(new VillagerTypeDataMap(biome.identifier(), villagerType.identifier()));
+    this.consumer.accept(new VillagerTypeDataMap(biome, villagerType));
   }
 
   @NotNull
